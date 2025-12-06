@@ -14,6 +14,10 @@ import { baseHandleConvert } from '../utils/conversions';
 import { pressEnterTwiceToExit } from '../utils/enterKey';
 import { CustomElement, CustomText, type Block } from '../utils/types';
 
+if (typeof window !== 'undefined') {
+  (window as any).Prism = Prism;
+}
+
 import 'prismjs/themes/prism-solarizedlight.css';
 import 'prismjs/components/prism-asmatmel';
 import 'prismjs/components/prism-bash';
