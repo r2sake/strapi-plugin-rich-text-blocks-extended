@@ -11,10 +11,12 @@ import {
   BoxComponent,
   Menu,
   IconButton,
+  Typography,
 } from '@strapi/design-system';
-import { Link } from '@strapi/icons';
+import { Link, ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Trash, Cog, Plus } from '@strapi/icons';
 import { MessageDescriptor, useIntl } from 'react-intl';
-import { Editor, Transforms, Element as SlateElement, Node, type Ancestor } from 'slate';
+import { Editor, Transforms, Element as SlateElement, Node, type Ancestor, Path } from 'slate'; 
+import { insertRow, deleteRow, insertColumn, deleteColumn, toggleHeader, deleteTable, mergeRight, mergeDown, splitCell } from './Blocks/Table';
 import { ReactEditor } from 'slate-react';
 import { css, styled } from 'styled-components';
 
@@ -571,6 +573,121 @@ const StyledMenuItem = styled(Menu.Item)<{ $isActive: boolean }>`
   }
 `;
 
+const checkIsInsideTable = (editor: Editor) => {
+  if (!editor.selection) return false;
+  const [table] = Editor.above(editor, {
+    match: (n) => !Editor.isEditor(n) && SlateElement.isElement(n) && (n as any).type === 'table',
+  }) || [];
+  return !!table;
+};
+
+const TableActionsMenu = ({ location = 'toolbar' }: { location?: 'toolbar' | 'menu' }) => {
+    const { editor } = useBlocksEditorContext('TableActionsMenu');
+    const { formatMessage } = useIntl();
+
+    const handleInsertRow = () => insertRow(editor);
+    const handleDeleteRow = () => deleteRow(editor);
+    const handleInsertColumn = () => insertColumn(editor);
+    const handleDeleteColumn = () => deleteColumn(editor);
+    const handleToggleHeader = () => toggleHeader(editor);
+    const handleDeleteTable = () => deleteTable(editor);
+    const handleMergeRight = () => mergeRight(editor);
+    const handleMergeDown = () => mergeDown(editor);
+    const handleSplitCell = () => splitCell(editor);
+
+    if (location === 'menu') {
+        return (
+            <>
+                <Menu.Label>Table Actions</Menu.Label>
+                <StyledMenuItem onSelect={handleInsertRow} $isActive={false}>
+                    <ArrowDown /> Insert Row Below
+                </StyledMenuItem>
+                <StyledMenuItem onSelect={handleDeleteRow} $isActive={false}>
+                    <Trash /> Delete Row
+                </StyledMenuItem>
+                 <StyledMenuItem onSelect={handleInsertColumn} $isActive={false}>
+                    <ArrowRight /> Insert Column Right
+                </StyledMenuItem>
+                <StyledMenuItem onSelect={handleDeleteColumn} $isActive={false}>
+                    <Trash /> Delete Column
+                </StyledMenuItem>
+                <StyledMenuItem onSelect={handleToggleHeader} $isActive={false}>
+                    <Cog /> Toggle Header
+                </StyledMenuItem>
+                <StyledMenuItem onSelect={handleDeleteTable} $isActive={false}>
+                    <Trash /> Delete Table
+                </StyledMenuItem>
+                <StyledMenuItem onSelect={handleMergeRight} $isActive={false}>
+                    <ArrowRight /> Merge Right
+                </StyledMenuItem>
+                <StyledMenuItem onSelect={handleMergeDown} $isActive={false}>
+                    <ArrowDown /> Merge Down
+                </StyledMenuItem>
+                <StyledMenuItem onSelect={handleSplitCell} $isActive={false}>
+                    <Plus /> Split Cell
+                </StyledMenuItem>
+            </>
+        );
+    }
+
+    return (
+         <Menu.Root>
+            <Menu.Trigger>
+                <IconButton label="Table Actions">
+                    <Cog />
+                </IconButton>
+            </Menu.Trigger>
+            <Menu.Content>
+                <Menu.Item onSelect={handleInsertRow}>
+                    <Flex gap={2}>
+                        <ArrowDown style={{ width: 12 }} /> <Typography variant="pi">Insert Row Below</Typography>
+                    </Flex>
+                </Menu.Item>
+                <Menu.Item onSelect={handleDeleteRow}>
+                    <Flex gap={2}>
+                        <Trash style={{ width: 12 }} /> <Typography variant="pi">Delete Row</Typography>
+                    </Flex>
+                </Menu.Item>
+                <Menu.Item onSelect={handleInsertColumn}>
+                    <Flex gap={2}>
+                        <ArrowRight style={{ width: 12 }} /> <Typography variant="pi">Insert Column Right</Typography>
+                    </Flex>
+                </Menu.Item>
+                <Menu.Item onSelect={handleDeleteColumn}>
+                    <Flex gap={2}>
+                        <Trash style={{ width: 12 }} /> <Typography variant="pi">Delete Column</Typography>
+                    </Flex>
+                </Menu.Item>
+                <Menu.Item onSelect={handleToggleHeader}>
+                    <Flex gap={2}>
+                        <Cog style={{ width: 12 }} /> <Typography variant="pi">Toggle Header</Typography>
+                    </Flex>
+                </Menu.Item>
+                <Menu.Item onSelect={handleDeleteTable}>
+                    <Flex gap={2}>
+                        <Trash style={{ width: 12 }} /> <Typography variant="pi">Delete Table</Typography>
+                    </Flex>
+                </Menu.Item>
+                <Menu.Item onSelect={handleMergeRight}>
+                    <Flex gap={2}>
+                        <ArrowRight style={{ width: 12 }} /> <Typography variant="pi">Merge Right</Typography>
+                    </Flex>
+                </Menu.Item>
+                <Menu.Item onSelect={handleMergeDown}>
+                    <Flex gap={2}>
+                        <ArrowDown style={{ width: 12 }} /> <Typography variant="pi">Merge Down</Typography>
+                    </Flex>
+                </Menu.Item>
+                <Menu.Item onSelect={handleSplitCell}>
+                    <Flex gap={2}>
+                        <Plus style={{ width: 12 }} /> <Typography variant="pi">Split Cell</Typography>
+                    </Flex>
+                </Menu.Item>
+            </Menu.Content>
+         </Menu.Root>
+    );
+};
+
 const BlocksToolbar = () => {
   const { editor, blocks, modifiers, disabled } = useBlocksEditorContext('BlocksToolbar');
   const { formatMessage } = useIntl();
@@ -660,6 +777,11 @@ const BlocksToolbar = () => {
       ),
       key: 'block.list',
     },
+    ...(checkIsInsideTable(editor) ? [{
+        toolbar: <TableActionsMenu location="toolbar" />,
+        menu: <TableActionsMenu location="menu" />,
+        key: 'table.actions',
+    }] : []),
   ];
 
   return (

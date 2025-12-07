@@ -31,6 +31,23 @@ const withStrapiSchema = (editor: Editor) => {
       return;
     }
 
+    // Table normalization: Ensure tables have at least one row and rows have cells
+    if (Element.isElement(node) && (node as CustomElement).type === 'table') {
+      const tableNode = node as CustomElement;
+      if (tableNode.children.length === 0) {
+        Transforms.removeNodes(editor, { at: path });
+        return;
+      }
+    }
+
+    if (Element.isElement(node) && (node as CustomElement).type === 'table-row') {
+      const rowNode = node as CustomElement;
+      if (rowNode.children.length === 0) {
+        Transforms.removeNodes(editor, { at: path });
+        return;
+      }
+    }
+
     normalizeNode(entry);
   };
 

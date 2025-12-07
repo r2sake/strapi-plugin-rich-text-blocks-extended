@@ -43,7 +43,7 @@ const baseHandleConvert = <T extends CustomElement>(
   const { fontFamily, fontColor, fontSettings } = element;
 
   // Only preserve font settings if not converting to code or image blocks
-  const shouldPreserveFontSettings = !['code', 'image'].includes(attributesToSet.type);
+  const shouldPreserveFontSettings = !['code', 'image', 'table'].includes(attributesToSet.type);
 
   Transforms.setNodes<CustomElement>(
     editor,

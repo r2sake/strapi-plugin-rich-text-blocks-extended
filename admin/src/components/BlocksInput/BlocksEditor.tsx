@@ -19,6 +19,7 @@ import { listBlocks } from './Blocks/List';
 import { paragraphBlocks } from './Blocks/Paragraph';
 import { quoteBlocks } from './Blocks/Quote';
 import { separatorBlocks } from './Blocks/Separator';
+import { tableBlocks } from './Blocks/Table';
 import { BlocksContent, type BlocksContentProps } from './BlocksContent';
 import { BlocksToolbar } from './BlocksToolbar';
 import { EditorLayout } from './EditorLayout';
@@ -53,7 +54,7 @@ interface SelectorBlock extends BaseBlock {
   label: MessageDescriptor;
 }
 
-type NonSelectorBlockKey = 'list-item' | 'link';
+type NonSelectorBlockKey = 'list-item' | 'link' | 'table-row' | 'table-cell';
 
 const selectorBlockKeys = [
   'paragraph',
@@ -69,6 +70,7 @@ const selectorBlockKeys = [
   'quote',
   'code',
   'separator',
+  'table',
 ] as const;
 
 type SelectorBlockKey = (typeof selectorBlockKeys)[number];
@@ -275,6 +277,7 @@ const BlocksEditor = React.forwardRef<{ focus: () => void }, BlocksEditorProps>(
         ...quoteBlocks,
         ...codeBlocks,
         ...separatorBlocks,
+        ...tableBlocks,
       }),
       []
     ) satisfies BlocksStore;

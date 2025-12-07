@@ -85,6 +85,24 @@ export interface ImageElement extends CustomElement {
   children: CustomText[];
 }
 
+export interface TableNode extends CustomElement {
+  type: 'table';
+  children: TableRowNode[];
+}
+
+export interface TableRowNode extends CustomElement {
+  type: 'table-row';
+  children: TableCellNode[];
+}
+
+export interface TableCellNode extends CustomElement {
+  type: 'table-cell';
+  children: Descendant[];
+  colspan?: number;
+  rowspan?: number;
+  isHeader?: boolean;
+}
+
 export type Block<T extends string> = Extract<Node, { type: T }>;
 
 // Utility functions
@@ -99,4 +117,8 @@ export const isLinkNode = (element: CustomElement): element is LinkNode => {
 
 export const isListNode = (element: CustomElement): element is ListNode => {
   return element.type === 'list';
+};
+
+export const isTableNode = (element: CustomElement): element is TableNode => {
+  return element.type === 'table';
 };
