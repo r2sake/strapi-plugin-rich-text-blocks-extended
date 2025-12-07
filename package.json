@@ -1,5 +1,5 @@
 {
-  "version": "1.2.2",
+  "version": "1.2.3",
   "keywords": [],
   "type": "commonjs",
   "exports": {
@@ -60,7 +60,7 @@
     "prismjs": "1.30.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-intl": "^7.1.10",
+    "react-intl": ">=6.0.0",
     "react-router-dom": "^6.30.0",
     "slate": "0.94.1",
     "slate-history": "0.93.0",
