@@ -2,9 +2,11 @@ import { PLUGIN_ID } from './pluginId';
 import { Initializer } from './components/Initializer';
 import {PluginIcon} from './components/PluginIcon';
 import * as yup from 'yup';
+import { initPrism } from './utils/prism-init';
 
 export default {
   register(app: any) {
+
     app.registerPlugin({
       id: PLUGIN_ID,
       name: PLUGIN_ID,
@@ -324,6 +326,10 @@ export default {
         },
       },
     });
+  },
+
+  async bootstrap(app: any) {
+    await initPrism();
   },
 
   async registerTrads({ locales }: { locales: string[] }) {

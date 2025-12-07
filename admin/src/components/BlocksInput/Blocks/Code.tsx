@@ -15,73 +15,9 @@ import { pressEnterTwiceToExit } from '../utils/enterKey';
 import { CustomElement, CustomText, type Block } from '../utils/types';
 
 // Initialize Prism instance
-if (typeof window !== 'undefined') {
-  (window as any).Prism = Prism;
-}
+
 
 import 'prismjs/themes/prism-solarizedlight.css';
-
-// Dynamically load languages to ensure Prism is defined first
-const loadPrismLanguages = async () => {
-  if (typeof window === 'undefined') return;
-
-  // Manual definition again to be safe inside the async context
-  if (!(window as any).Prism) {
-    (window as any).Prism = Prism;
-  }
-
-  await import('prismjs/components/prism-asmatmel');
-  await import('prismjs/components/prism-bash');
-  await import('prismjs/components/prism-basic');
-  await import('prismjs/components/prism-c');
-  await import('prismjs/components/prism-clojure');
-  await import('prismjs/components/prism-cobol');
-  await import('prismjs/components/prism-cpp');
-  await import('prismjs/components/prism-csharp');
-  await import('prismjs/components/prism-dart');
-  await import('prismjs/components/prism-docker');
-  await import('prismjs/components/prism-elixir');
-  await import('prismjs/components/prism-erlang');
-  await import('prismjs/components/prism-fortran');
-  await import('prismjs/components/prism-fsharp');
-  await import('prismjs/components/prism-go');
-  await import('prismjs/components/prism-graphql');
-  await import('prismjs/components/prism-groovy');
-  await import('prismjs/components/prism-haskell');
-  await import('prismjs/components/prism-haxe');
-  await import('prismjs/components/prism-ini');
-  await import('prismjs/components/prism-java');
-  await import('prismjs/components/prism-javascript');
-  await import('prismjs/components/prism-jsx');
-  await import('prismjs/components/prism-json');
-  await import('prismjs/components/prism-julia');
-  await import('prismjs/components/prism-kotlin');
-  await import('prismjs/components/prism-latex');
-  await import('prismjs/components/prism-lua');
-  await import('prismjs/components/prism-markdown');
-  await import('prismjs/components/prism-matlab');
-  await import('prismjs/components/prism-makefile');
-  await import('prismjs/components/prism-objectivec');
-  await import('prismjs/components/prism-perl');
-  await import('prismjs/components/prism-php');
-  await import('prismjs/components/prism-powershell');
-  await import('prismjs/components/prism-python');
-  await import('prismjs/components/prism-r');
-  await import('prismjs/components/prism-ruby');
-  await import('prismjs/components/prism-rust');
-  await import('prismjs/components/prism-sas');
-  await import('prismjs/components/prism-scala');
-  await import('prismjs/components/prism-scheme');
-  await import('prismjs/components/prism-sql');
-  await import('prismjs/components/prism-stata');
-  await import('prismjs/components/prism-swift');
-  await import('prismjs/components/prism-typescript');
-  await import('prismjs/components/prism-tsx');
-  await import('prismjs/components/prism-vbnet');
-  await import('prismjs/components/prism-yaml');
-};
-
-loadPrismLanguages();
 
 // Add custom type definitions
 interface CodeElement extends CustomElement {
@@ -116,7 +52,13 @@ export const decorateCode = ([node, path]: NodeEntry) => {
   const language = codeLanguages.find((lang) => lang.value === (node as CustomElement).language);
   const decorateKey = language?.decorate ?? language?.value;
 
-  const selectedLanguage = Prism.languages[decorateKey || 'plaintext'];
+  let selectedLanguage = Prism.languages[decorateKey || 'plaintext'];
+  if (!selectedLanguage) {
+    selectedLanguage = Prism.languages.plaintext;
+  }
+  if (!selectedLanguage) {
+      return ranges;
+  }
 
   // create "tokens" with "prismjs" and put them in "ranges"
   const tokens = Prism.tokenize(text, selectedLanguage);
