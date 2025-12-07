@@ -14,60 +14,74 @@ import { baseHandleConvert } from '../utils/conversions';
 import { pressEnterTwiceToExit } from '../utils/enterKey';
 import { CustomElement, CustomText, type Block } from '../utils/types';
 
+// Initialize Prism instance
 if (typeof window !== 'undefined') {
   (window as any).Prism = Prism;
 }
 
 import 'prismjs/themes/prism-solarizedlight.css';
-import 'prismjs/components/prism-asmatmel';
-import 'prismjs/components/prism-bash';
-import 'prismjs/components/prism-basic';
-import 'prismjs/components/prism-c';
-import 'prismjs/components/prism-clojure';
-import 'prismjs/components/prism-cobol';
-import 'prismjs/components/prism-cpp';
-import 'prismjs/components/prism-csharp';
-import 'prismjs/components/prism-dart';
-import 'prismjs/components/prism-docker';
-import 'prismjs/components/prism-elixir';
-import 'prismjs/components/prism-erlang';
-import 'prismjs/components/prism-fortran';
-import 'prismjs/components/prism-fsharp';
-import 'prismjs/components/prism-go';
-import 'prismjs/components/prism-graphql';
-import 'prismjs/components/prism-groovy';
-import 'prismjs/components/prism-haskell';
-import 'prismjs/components/prism-haxe';
-import 'prismjs/components/prism-ini';
-import 'prismjs/components/prism-java';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/components/prism-jsx';
-import 'prismjs/components/prism-json';
-import 'prismjs/components/prism-julia';
-import 'prismjs/components/prism-kotlin';
-import 'prismjs/components/prism-latex';
-import 'prismjs/components/prism-lua';
-import 'prismjs/components/prism-markdown';
-import 'prismjs/components/prism-matlab';
-import 'prismjs/components/prism-makefile';
-import 'prismjs/components/prism-objectivec';
-import 'prismjs/components/prism-perl';
-import 'prismjs/components/prism-php';
-import 'prismjs/components/prism-powershell';
-import 'prismjs/components/prism-python';
-import 'prismjs/components/prism-r';
-import 'prismjs/components/prism-ruby';
-import 'prismjs/components/prism-rust';
-import 'prismjs/components/prism-sas';
-import 'prismjs/components/prism-scala';
-import 'prismjs/components/prism-scheme';
-import 'prismjs/components/prism-sql';
-import 'prismjs/components/prism-stata';
-import 'prismjs/components/prism-swift';
-import 'prismjs/components/prism-typescript';
-import 'prismjs/components/prism-tsx';
-import 'prismjs/components/prism-vbnet';
-import 'prismjs/components/prism-yaml';
+
+// Dynamically load languages to ensure Prism is defined first
+const loadPrismLanguages = async () => {
+  if (typeof window === 'undefined') return;
+
+  // Manual definition again to be safe inside the async context
+  if (!(window as any).Prism) {
+    (window as any).Prism = Prism;
+  }
+
+  await import('prismjs/components/prism-asmatmel');
+  await import('prismjs/components/prism-bash');
+  await import('prismjs/components/prism-basic');
+  await import('prismjs/components/prism-c');
+  await import('prismjs/components/prism-clojure');
+  await import('prismjs/components/prism-cobol');
+  await import('prismjs/components/prism-cpp');
+  await import('prismjs/components/prism-csharp');
+  await import('prismjs/components/prism-dart');
+  await import('prismjs/components/prism-docker');
+  await import('prismjs/components/prism-elixir');
+  await import('prismjs/components/prism-erlang');
+  await import('prismjs/components/prism-fortran');
+  await import('prismjs/components/prism-fsharp');
+  await import('prismjs/components/prism-go');
+  await import('prismjs/components/prism-graphql');
+  await import('prismjs/components/prism-groovy');
+  await import('prismjs/components/prism-haskell');
+  await import('prismjs/components/prism-haxe');
+  await import('prismjs/components/prism-ini');
+  await import('prismjs/components/prism-java');
+  await import('prismjs/components/prism-javascript');
+  await import('prismjs/components/prism-jsx');
+  await import('prismjs/components/prism-json');
+  await import('prismjs/components/prism-julia');
+  await import('prismjs/components/prism-kotlin');
+  await import('prismjs/components/prism-latex');
+  await import('prismjs/components/prism-lua');
+  await import('prismjs/components/prism-markdown');
+  await import('prismjs/components/prism-matlab');
+  await import('prismjs/components/prism-makefile');
+  await import('prismjs/components/prism-objectivec');
+  await import('prismjs/components/prism-perl');
+  await import('prismjs/components/prism-php');
+  await import('prismjs/components/prism-powershell');
+  await import('prismjs/components/prism-python');
+  await import('prismjs/components/prism-r');
+  await import('prismjs/components/prism-ruby');
+  await import('prismjs/components/prism-rust');
+  await import('prismjs/components/prism-sas');
+  await import('prismjs/components/prism-scala');
+  await import('prismjs/components/prism-scheme');
+  await import('prismjs/components/prism-sql');
+  await import('prismjs/components/prism-stata');
+  await import('prismjs/components/prism-swift');
+  await import('prismjs/components/prism-typescript');
+  await import('prismjs/components/prism-tsx');
+  await import('prismjs/components/prism-vbnet');
+  await import('prismjs/components/prism-yaml');
+};
+
+loadPrismLanguages();
 
 // Add custom type definitions
 interface CodeElement extends CustomElement {

@@ -46,3 +46,5 @@ declare global {
     strapi: BrowserStrapi;
   }
 }
+
+declare module 'prismjs/components/*';
