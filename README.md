@@ -1,3 +1,8 @@
+> [!NOTE]
+> **For Personal Use**: This is a personal fork maintained for compatibility with the latest Strapi version and to add specific features.
+>
+> **個人利用目的**: これは最新のStrapiへの対応および特定の機能追加を目的として保守されている、個人用のフォーク版です。
+
 # Strapi Plugin - Rich Text (Blocks - Extended)
 
 An extended version of the JSON based native Strapi field "Rich Text (Blocks)" that provides enhanced customization options and features.
