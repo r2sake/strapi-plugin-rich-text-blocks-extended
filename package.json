@@ -73,7 +73,7 @@
     "displayName": "Rich Text Blocks (Extended Version)",
     "description": "An extended version of the JSON based native strapi field \"Rich Text (Blocks)\""
   },
-  "name": "strapi-plugin-rich-text-blocks-extended",
+  "name": "@r2sake/strapi-plugin-rich-text-blocks-extended",
   "description": "An extended version of the JSON based native strapi field \"Rich Text (Blocks)\"",
   "license": "MIT",
   "author": "Jorge Pizzati <jorge.pizzati@uvltd.tech>"
