@@ -206,3 +206,31 @@ Feel free to contribute to this plugin by:
 ## 📄 License
 
 MIT License - Copyright (c) Jorge Pizzati
+
+---
+## 🇯🇵 日本語ドキュメント (Japanese Documentation)
+
+これは `strapi-plugin-rich-text-blocks-extended` の拡張フォーク版です。オリジナルの機能に加え、テーブル機能のサポートが強化されています。
+
+### 🚀 追加機能 (Extended Features)
+
+- **高度なテーブル（表）サポート**: 
+    - **基本操作**: 行・列の追加、削除、ヘッダーの切り替え
+    - **セル結合 (Cell Merging)**: 
+        - **Merge Right**: 右隣のセルと結合
+        - **Merge Down**: 下のセルと結合
+        - **Split Cell**: 結合されたセルの解除
+    - **スタイリング**:
+        - ヘッダー (`thead`) とボディ (`tbody`) の分離による正しいレンダリング
+        - 行結合時でも崩れない縞模様 (Zebra Striping) の背景色適用
+- **UI改善**: 
+    - テーブル操作用の拡張ツールバーメニュー
+
+### 謝辞
+このプラグインは [Jorge Pizzati](https://github.com/jorgepizzati) 氏によるオリジナル版 `strapi-plugin-rich-text-blocks-extended` をベースに開発されています。
+
+---
+## Credits
+
+This extended version is based on [strapi-plugin-rich-text-blocks-extended](https://github.com/jorgepizzati/strapi-plugin-rich-text-blocks-extended) by Jorge Pizzati.
+Extensions implement advanced table functionalities including cell merging, splitting, and enhanced UI controls.
