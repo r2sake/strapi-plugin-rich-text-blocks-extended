@@ -390,9 +390,7 @@ const BlocksContent = ({ placeholder, ariaLabelId }: BlocksContentProps) => {
     if (
       isLinkNode(element as any) ||
       (isListNode(element as any) && (element as any).indentLevel && (element as any).indentLevel > 0) ||
-      (element as any).type === 'list-item' ||
-      (element as any).type === 'table-row' ||
-      (element as any).type === 'table-cell'
+      (element as any).type === 'list-item'
     ) {
       return block.renderElement(props);
     }
@@ -552,12 +550,12 @@ const BlocksContent = ({ placeholder, ariaLabelId }: BlocksContentProps) => {
       width="100%"
       overflow="auto"
       fontSize={2}
+      background="neutral0"
+      color="neutral800"
       lineHeight={6}
       paddingRight={7}
       paddingTop={6}
       paddingBottom={3}
-      // Dark mode support: inherit background and color from parent InputWrapper
-      style={{ background: 'inherit', color: 'inherit' }}
     >
       <DndContext 
         sensors={sensors}

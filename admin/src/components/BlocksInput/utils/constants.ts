@@ -1,12 +1,10 @@
 export const codeLanguages: {
   value: string;
   label: string;
-  decorate?: string;
 }[] = [
   {
     value: 'asm',
     label: 'Assembly',
-    decorate: 'asmatmel',
   },
   {
     value: 'bash',
@@ -43,7 +41,6 @@ export const codeLanguages: {
   {
     value: 'dockerfile',
     label: 'Dockerfile',
-    decorate: 'docker',
   },
   {
     value: 'elixir',
@@ -200,7 +197,6 @@ export const codeLanguages: {
   {
     value: 'typescript',
     label: 'TypeScript',
-    decorate: 'ts',
   },
   {
     value: 'tsx',
@@ -217,7 +213,6 @@ export const codeLanguages: {
   {
     value: 'yaml',
     label: 'YAML',
-    decorate: 'yml',
   },
 ];
 

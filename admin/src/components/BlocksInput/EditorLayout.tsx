@@ -63,7 +63,7 @@ const EditorLayout = ({
             onClick={onCollapse}
           >
             <Box<'div'>
-              background="neutral900" // Changed from neutral0
+              background="neutral0"
               hasRadius
               shadow="popupShadow"
               overflow="hidden"
@@ -114,34 +114,6 @@ const InputWrapper = styled<FlexComponent>(Flex)<{ $disabled?: boolean; $hasErro
   border-radius: ${({ theme }) => theme.borderRadius};
   resize: vertical;
   background: ${({ theme }) => theme.colors.neutral0};
-  height: 600px;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  // Dark mode overrides
-  background: #181826; // neutral900
-  border-color: #4a4a6a; // neutral600
-  color: #ffffff;
-
-  // Ensure text content is visible in dark mode
-  & p, & span, & h1, & h2, & h3, & h4, & h5, & h6, & li, & div {
-     color: #ffffff !important;
-  }
-  
-  // Update icon colors in toolbar for dark mode visibility
-  & button svg path {
-    fill: #a5a5ba; // neutral400 - make icons lighter
-  }
-  & button[aria-checked="true"] svg path, & button[data-state="on"] svg path {
-    fill: ${({ theme }) => theme.colors.primary600} !important; // Keep primary color for active
-  }
-  & button:hover svg path {
-    fill: ${({ theme }) => theme.colors.primary500};
-  }
-  // Fix dropdown text color
-  & div[role="combobox"] span {
-    color: #ffffff !important;
-  }
 
   ${({ theme, $hasError = false }) => css`
     outline: none;

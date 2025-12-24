@@ -54,7 +54,7 @@ interface SelectorBlock extends BaseBlock {
   label: MessageDescriptor;
 }
 
-type NonSelectorBlockKey = 'list-item' | 'link' | 'table-row' | 'table-cell';
+type NonSelectorBlockKey = 'list-item' | 'link';
 
 const selectorBlockKeys = [
   'paragraph',

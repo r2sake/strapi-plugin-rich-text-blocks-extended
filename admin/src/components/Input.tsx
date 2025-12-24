@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { BlocksEditor } from './BlocksInput/BlocksEditor';
-import { DesignSystemProvider, darkTheme, Field, Flex } from '@strapi/design-system';
-
+import { DesignSystemProvider, lightTheme, Field, Flex } from '@strapi/design-system';
 
 interface InputProps {
   attribute: {
@@ -67,7 +66,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   };
 
   return (
-    <DesignSystemProvider theme={darkTheme}>
+    <DesignSystemProvider theme={lightTheme}>
       <Field.Root
         id={props.name}
         name={props.name}

@@ -85,6 +85,23 @@ export interface ImageElement extends CustomElement {
   children: CustomText[];
 }
 
+export type Block<T extends string> = Extract<Node, { type: T }>;
+
+// Utility functions
+export const getEntries = <T extends object>(object: T) =>
+  Object.entries(object) as [keyof T, T[keyof T]][];
+
+export const getKeys = <T extends object>(object: T) => Object.keys(object) as (keyof T)[];
+
+export const isLinkNode = (element: CustomElement): element is LinkNode => {
+  return element.type === 'link';
+};
+
+export const isListNode = (element: CustomElement): element is ListNode => {
+  return element.type === 'list';
+};
+
+// Table types
 export interface TableNode extends CustomElement {
   type: 'table';
   children: TableRowNode[];
@@ -102,22 +119,6 @@ export interface TableCellNode extends CustomElement {
   rowspan?: number;
   isHeader?: boolean;
 }
-
-export type Block<T extends string> = Extract<Node, { type: T }>;
-
-// Utility functions
-export const getEntries = <T extends object>(object: T) =>
-  Object.entries(object) as [keyof T, T[keyof T]][];
-
-export const getKeys = <T extends object>(object: T) => Object.keys(object) as (keyof T)[];
-
-export const isLinkNode = (element: CustomElement): element is LinkNode => {
-  return element.type === 'link';
-};
-
-export const isListNode = (element: CustomElement): element is ListNode => {
-  return element.type === 'list';
-};
 
 export const isTableNode = (element: CustomElement): element is TableNode => {
   return element.type === 'table';
