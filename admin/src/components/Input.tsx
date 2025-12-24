@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { BlocksEditor } from './BlocksInput/BlocksEditor';
-import { DesignSystemProvider, lightTheme, Field, Flex } from '@strapi/design-system';
+import { DesignSystemProvider, Field, Flex } from '@strapi/design-system';
+import { useTheme } from 'styled-components';
 
 interface InputProps {
   attribute: {
@@ -38,6 +39,9 @@ interface InputProps {
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+  // Get the current theme from the parent context
+  const theme = useTheme();
+
   // Get initial editor value
   const getInitialValue = () => {
     try {
@@ -66,7 +70,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   };
 
   return (
-    <DesignSystemProvider theme={lightTheme}>
+    <DesignSystemProvider theme={theme as any}>
       <Field.Root
         id={props.name}
         name={props.name}

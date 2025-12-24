@@ -387,10 +387,13 @@ const BlocksContent = ({ placeholder, ariaLabelId }: BlocksContentProps) => {
 
     // Link is inline block so it cannot be dragged
     // List items and nested list blocks i.e. lists with indent level higher than 0 are skipped from dragged items
+    // Table rows and cells must not be wrapped to preserve table structure
     if (
       isLinkNode(element as any) ||
       (isListNode(element as any) && (element as any).indentLevel && (element as any).indentLevel > 0) ||
-      (element as any).type === 'list-item'
+      (element as any).type === 'list-item' ||
+      (element as any).type === 'table-row' ||
+      (element as any).type === 'table-cell'
     ) {
       return block.renderElement(props);
     }
